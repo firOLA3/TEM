@@ -1,0 +1,28 @@
+{
+  "name": "tem",
+  "displayName": "TEM (Terminal Event Monitor)",
+  "description": "Companion extension for TEM CLI to automatically inject terminal errors into Copilot Chat.",
+  "version": "0.1.0",
+  "publisher": "tem-tool",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {},
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "@types/node": "18.x",
+    "typescript": "^5.1.3"
+  }
+}

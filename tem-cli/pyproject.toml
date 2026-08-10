@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tem-cli"
+version = "0.1.0"
+description = "Terminal Event Monitor: automatically capture and deliver terminal errors."
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "pyperclip>=1.8.2",
+    "windows-toasts>=1.0.0",
+    "keyboard>=0.13.5",
+    "uiautomation>=2.0.18",
+    "pystray>=0.19.4",
+    "Pillow>=9.5.0"
+]
+
+[project.scripts]
+tem = "tem_cli.main:main"

@@ -65,6 +65,10 @@ def main():
     
     args = parser.parse_args()
     
+    # If no subcommand is provided (e.g. double-clicking the .exe), default to tray app
+    if args.command is None:
+        args.command = "tray"
+        
     if args.command == "run":
         if not args.target_command:
             print("Please provide a command to run. Example: tem run python script.py")

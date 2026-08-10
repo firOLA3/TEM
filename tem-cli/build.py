@@ -10,7 +10,7 @@ def main():
         print("PyInstaller not found. Please run 'pip install pyinstaller'")
         sys.exit(1)
         
-    main_script = os.path.join("src", "tem_cli", "main.py")
+    main_script = "cli.py"
     
     args = [
         main_script,

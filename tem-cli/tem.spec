@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['src/tem_cli/main.py'],
+    ['cli.py'],
     pathex=[],
     binaries=[],
     datas=[],

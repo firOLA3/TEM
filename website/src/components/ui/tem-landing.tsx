@@ -62,7 +62,7 @@ const Navigation = React.memo(() => {
             <a href="#installation" className="text-sm text-white/60 hover:text-white transition-colors">
               Installation
             </a>
-            <a href="https://github.com" className="text-sm text-white/60 hover:text-white transition-colors">
+            <a href="https://github.com/firOLA3/TEM.git" className="text-sm text-white/60 hover:text-white transition-colors">
               GitHub
             </a>
           </div>
@@ -191,24 +191,28 @@ const Hero = React.memo(() => {
       </p>
 
       <div className="flex flex-col sm:flex-row items-center gap-4 relative z-10 mb-20">
-        <Button
-          type="button"
-          variant="gradient"
-          size="lg"
-          className="rounded-lg flex items-center justify-center shadow-lg shadow-white/10 w-full sm:w-auto"
-        >
-          <Download size={18} className="mr-2" />
-          Download tem.exe
-        </Button>
-        <Button
-          type="button"
-          variant="secondary"
-          size="lg"
-          className="rounded-lg flex items-center justify-center border border-gray-700 bg-black/50 backdrop-blur-md w-full sm:w-auto"
-        >
-          <Download size={18} className="mr-2" />
-          Install VS Code Extension
-        </Button>
+        <a href="/downloads/tem.exe" download className="w-full sm:w-auto">
+          <Button
+            type="button"
+            variant="gradient"
+            size="lg"
+            className="rounded-lg flex items-center justify-center shadow-lg shadow-white/10 w-full"
+          >
+            <Download size={18} className="mr-2" />
+            Download tem.exe
+          </Button>
+        </a>
+        <a href="/downloads/tem.vsix" download className="w-full sm:w-auto">
+          <Button
+            type="button"
+            variant="secondary"
+            size="lg"
+            className="rounded-lg flex items-center justify-center border border-gray-700 bg-black/50 backdrop-blur-md w-full"
+          >
+            <Download size={18} className="mr-2" />
+            Install VS Code Extension
+          </Button>
+        </a>
       </div>
 
       <div className="w-full max-w-6xl relative pb-20 z-10">

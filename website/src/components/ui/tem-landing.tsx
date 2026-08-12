@@ -1,5 +1,6 @@
 'use client';
 import React from "react";
+import Link from "next/link";
 import { Waves } from "./wave-background";
 
 // Inline Button Component
@@ -9,7 +10,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ variant = "default", size = "default", className = "", children, ...props }, ref) => {
     const baseStyles = "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 z-10 relative";
     
@@ -40,28 +41,28 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
 Button.displayName = "Button";
 
-import { ArrowRight, Menu, X, Terminal, Download } from "lucide-react";
+import { ArrowRight, Menu, X, Terminal, Download, Mail } from "lucide-react";
 
 // Navigation Component
-const Navigation = React.memo(() => {
+export const Navigation = React.memo(() => {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
   return (
     <header className="fixed top-0 w-full z-50 border-b border-gray-800/50 bg-black/80 backdrop-blur-md">
       <nav className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-xl font-semibold text-white">
+          <Link href="/" className="flex items-center gap-2 text-xl font-semibold text-white hover:opacity-80 transition-opacity">
             <Terminal size={24} className="text-white" />
             <span>TEM</span>
-          </div>
+          </Link>
           
           <div className="hidden md:flex items-center justify-center gap-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <a href="#features" className="text-sm text-white/60 hover:text-white transition-colors">
+            <Link href="/#features" className="text-sm text-white/60 hover:text-white transition-colors">
               Features
-            </a>
-            <a href="#installation" className="text-sm text-white/60 hover:text-white transition-colors">
+            </Link>
+            <Link href="/#installation" className="text-sm text-white/60 hover:text-white transition-colors">
               Installation
-            </a>
+            </Link>
             <a href="https://github.com/firOLA3/TEM.git" className="text-sm text-white/60 hover:text-white transition-colors">
               GitHub
             </a>
@@ -71,9 +72,11 @@ const Navigation = React.memo(() => {
             <Button type="button" variant="ghost" size="sm">
               View Source
             </Button>
-            <Button type="button" variant="default" size="sm">
-              <Download size={16} /> Download
-            </Button>
+            <Link href="/download" tabIndex={-1}>
+              <Button type="button" variant="default" size="sm">
+                <Download size={16} /> Download
+              </Button>
+            </Link>
           </div>
 
           <button
@@ -90,20 +93,20 @@ const Navigation = React.memo(() => {
       {mobileMenuOpen && (
         <div className="md:hidden bg-black/95 backdrop-blur-md border-t border-gray-800/50 animate-[slideDown_0.3s_ease-out]">
           <div className="px-6 py-4 flex flex-col gap-4">
-            <a
-              href="#features"
+            <Link
+              href="/#features"
               className="text-sm text-white/60 hover:text-white transition-colors py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Features
-            </a>
-            <a
-              href="#installation"
+            </Link>
+            <Link
+              href="/#installation"
               className="text-sm text-white/60 hover:text-white transition-colors py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Installation
-            </a>
+            </Link>
             <a
               href="https://github.com"
               className="text-sm text-white/60 hover:text-white transition-colors py-2"
@@ -115,9 +118,11 @@ const Navigation = React.memo(() => {
               <Button type="button" variant="ghost" size="sm">
                 View Source
               </Button>
-              <Button type="button" variant="default" size="sm">
-                <Download size={16} /> Download
-              </Button>
+              <Link href="/download" tabIndex={-1}>
+                <Button type="button" variant="default" size="sm" className="w-full">
+                  <Download size={16} /> Download
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -232,11 +237,120 @@ const Hero = React.memo(() => {
 
 Hero.displayName = "Hero";
 
+const Newsletter = React.memo(() => {
+  return (
+    <section className="relative py-24 px-6 border-t border-gray-800/50 bg-gradient-to-b from-black to-gray-900/50">
+      <div className="max-w-4xl mx-auto text-center relative z-10">
+        <div className="inline-flex items-center justify-center p-3 bg-white/5 rounded-full mb-6 border border-white/10 shadow-lg shadow-white/5">
+          <Mail size={24} className="text-gray-300" />
+        </div>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400">
+          Stay in the Loop
+        </h2>
+        <p className="text-gray-400 mb-8 max-w-xl mx-auto">
+          Subscribe to our newsletter for the latest updates on TEM, including new features, OS support, and developer productivity tips.
+        </p>
+        <form className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto" onSubmit={(e) => e.preventDefault()}>
+          <input 
+            type="email" 
+            placeholder="Enter your email address" 
+            className="w-full h-11 px-4 bg-gray-900/50 border border-gray-700 rounded-lg text-sm text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/30 transition-all"
+            required
+          />
+          <Button type="submit" variant="default" className="w-full sm:w-auto h-11 px-8 rounded-lg shadow-lg shadow-white/10 hover:bg-gray-200">
+            Subscribe
+          </Button>
+        </form>
+      </div>
+    </section>
+  );
+});
+Newsletter.displayName = "Newsletter";
+
+const GithubIcon = ({ size = 24, className = "" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+    <path d="M9 18c-4.51 2-5-2-7-2" />
+  </svg>
+);
+
+const TwitterIcon = ({ size = 24, className = "" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
+  </svg>
+);
+
+const Footer = React.memo(() => {
+  return (
+    <footer className="border-t border-gray-800/50 bg-black pt-16 pb-8 px-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-4 mb-16">
+          <div className="md:col-span-1">
+            <Link href="/" className="flex items-center gap-2 text-xl font-semibold text-white mb-4 hover:opacity-80 transition-opacity">
+              <Terminal size={24} className="text-white" />
+              <span>TEM</span>
+            </Link>
+            <p className="text-sm text-gray-500 mb-6 max-w-xs">
+              Stop pasting terminal errors manually. Pipe errors directly to VS Code Copilot Chat.
+            </p>
+            <div className="flex items-center gap-4">
+              <a href="https://github.com/firOLA3/TEM.git" className="text-gray-400 hover:text-white transition-colors" aria-label="GitHub">
+                <GithubIcon size={20} />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors" aria-label="Twitter">
+                <TwitterIcon size={20} />
+              </a>
+            </div>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold text-white mb-4">Product</h4>
+            <ul className="space-y-3">
+              <li><Link href="/#features" className="text-sm text-gray-400 hover:text-white transition-colors">Features</Link></li>
+              <li><Link href="/download" className="text-sm text-gray-400 hover:text-white transition-colors">Download</Link></li>
+              <li><Link href="/#installation" className="text-sm text-gray-400 hover:text-white transition-colors">Installation</Link></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold text-white mb-4">Resources</h4>
+            <ul className="space-y-3">
+              <li><a href="https://github.com/firOLA3/TEM.git" className="text-sm text-gray-400 hover:text-white transition-colors">Documentation</a></li>
+              <li><a href="#" className="text-sm text-gray-400 hover:text-white transition-colors">Blog</a></li>
+              <li><a href="#" className="text-sm text-gray-400 hover:text-white transition-colors">Community</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold text-white mb-4">Legal</h4>
+            <ul className="space-y-3">
+              <li><a href="#" className="text-sm text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+              <li><a href="#" className="text-sm text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div className="border-t border-gray-800/50 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-gray-600">
+            © {new Date().getFullYear()} TEM. All rights reserved.
+          </p>
+          <div className="flex items-center gap-2 text-sm text-gray-600">
+            Designed for Developers
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+});
+Footer.displayName = "Footer";
+
 export function TemLandingPage() {
   return (
     <main className="min-h-screen bg-black text-white relative">
       <Navigation />
       <Hero />
+      <Newsletter />
+      <Footer />
     </main>
   );
 }
